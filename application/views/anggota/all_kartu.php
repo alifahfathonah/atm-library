@@ -11,7 +11,7 @@
     <style type="text/css" media="print">
         @page { 
             size: 21cm 29.7cm;
-            margin: 0.5cm}
+            margin: 1.5cm}
     </style>
 
     <title><?php echo $judul?></title>
@@ -20,18 +20,17 @@
     <body>
     <div class="row">
     <?php foreach($kartu as $kar) {?>
-        <div class="card p-4 col-md-5 m-1" style="width: 31rem">
+        <div class="card p-3 col-md-5 m-1" style="width: 31rem">
             <img class="img-card-top img-fluid" src="<?php echo base_url()?>assets/img/header.jpg" alt="">
             <div class="card-body">
-                <hr class="m-0 p-0 mb-2">
-                <h5 class="mb-4 text-center">Kartu Anggota</h5>
+                <h5 class="mb-2 text-center">Kartu Anggota</h5>
                 
-                <table class="mb-2">
-                    <tr><th>NIM</th><td>: <?php echo $kar->nim?></td></tr>
+                <table>
+                    <tr><th>NIS</th><td>: <?php echo $kar->nis?></td></tr>
                     <tr><th>Nama</th><td>: <?php echo $kar->nama?></td></tr>
                     <tr><th>Jenis Kelamin</th><td>: <?php echo $kar->jk?></td></tr>
-                    <tr><th>E-Mail</th><td>: <?php echo $kar->email?></td></tr>
-                    <tr><th>Alamat</th><td>: <?php echo $kar->alamat?></td></tr>
+                    <tr><th>Kelas</th><td>: <?php echo $kar->kelas?></td></tr>
+                    <tr><th>Jurusan</th><td>: <?php echo $kar->jurusan?></td></tr>
                 </table>
             </div>
             <img src="<?php echo base_url()?>assets/img/bc.png" alt="">

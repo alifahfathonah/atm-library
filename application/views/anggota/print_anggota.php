@@ -18,18 +18,17 @@
     </head>
     <body>
         <img src="<?php echo base_url()?>assets/img/header.jpg" alt="">
-        <hr>
-        <h3 class="text-center mb-4">Data Anggota</h3>
+        
+        <h3 class="text-center mb-4 mt-3">Data Anggota</h3>
         <table class="table table-bordered">
         <thead>
             <tr class="text-center">
                 <th scope="col">No.</th>
-                <th scope="col">NIM</th>
+                <th scope="col">NIS</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Jenis Kelamin</th>
-                <th scope="col">No. HP</th>
-                <th scope="col">E-Mail</th>
-                <th scope="col">Alamat</th>
+                <th scope="col">Kelas</th>
+                <th scope="col">Jurusan</th>
             </tr>
         </thead>
         <tbody>
@@ -39,12 +38,11 @@
             ?>
                 <tr>
                     <td class="text-center"><?php echo $no++ ?>.</td>
-                    <td class="text-center"><?php echo $ang->nim ?></td>
+                    <td class="text-center"><?php echo $ang->nis ?></td>
                     <td><?php echo $ang->nama ?></td>
                     <td class="text-center"><?php echo $ang->jk ?></td>
-                    <td><?php echo $ang->hp ?></td>
-                    <td><?php echo $ang->email ?></td>
-                    <td><?php echo $ang->alamat ?></td>
+                    <td class="text-center"><?php echo $ang->kelas ?></td>
+                    <td><?php echo $ang->jurusan ?></td>
                 </tr>
             <?php } ?>
         </tbody>

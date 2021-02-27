@@ -38,12 +38,11 @@
                     <thead>
                         <tr class="text-center">
                             <th>No.</th>
-                            <th>NIM</th>
+                            <th>NIS</th>
                             <th>Nama</th>
                             <th>Jenis Kelamin</th>
-                            <th>No. HP</th>
-                            <th>E-Mail</th>
-                            <th>Alamat</th>
+                            <th>Kelas</th>
+                            <th>Jurusan</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -53,16 +52,15 @@
                             foreach($anggota as $ang) { ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $ang->nim ?></td>
+                            <td><?php echo $ang->nis ?></td>
                             <td><?php echo $ang->nama ?></td>
                             <td><?php echo $ang->jk ?></td>
-                            <td><?php echo $ang->hp ?></td>
-                            <td><?php echo $ang->email ?></td>
-                            <td><?php echo $ang->alamat ?></td>
+                            <td><?php echo $ang->kelas ?></td>
+                            <td><?php echo $ang->jurusan ?></td>
                             <td>
-                                <?php echo anchor('admin/edit_anggota/'.$ang->nim,'<div class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></div>')?>
-                                <a href="<?php echo base_url('admin/kartu/'.$ang->nim)?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Cetak Kartu Anggota" target="_blank"><i class="fas fa-print"></i></a>
-                                <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="fas fa-trash" data-placement="top" title="Hapus Data" onclick="hapusdata(<?php echo $ang->nim;?>)";></i></a>
+                                <?php echo anchor('admin/edit_anggota/'.$ang->nis,'<div class="btn btn-success btn-sm" data-toggle="tooltip" data-placement="top" title="Edit Data"><i class="fas fa-edit"></i></div>')?>
+                                <a href="<?php echo base_url('admin/kartu/'.$ang->nis)?>" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Cetak Kartu Anggota" target="_blank"><i class="fas fa-print"></i></a>
+                                <a href="javascript:void(0);" class="btn btn-sm btn-danger"><i class="fas fa-trash" data-placement="top" title="Hapus Data" onclick="hapusdata(<?php echo $ang->nis;?>)";></i></a>
                             </td>
                         </tr>
                         <?php } ?>
@@ -88,9 +86,9 @@
                 <div class="modal-body">
                 <?php echo form_open_multipart('admin/input_anggota');?>
                     <div class="form-group">
-                        <label>NIM</label>
-                        <input type="text" class="form-control" id="nim" placeholder="" name="nim">
-                        <?php echo form_error('nim')?>
+                        <label>NIS</label>
+                        <input type="text" class="form-control" id="nis" placeholder="" name="nis">
+                        <?php echo form_error('nis')?>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-8">
@@ -99,33 +97,33 @@
                             <?php echo form_error('nama')?>
                         </div>
                         <div class="form-group col-md-4">
-                        <label>Jenis Kelamin</label>
-                        <select id="jk" class="form-control" name="jk">
-                            <option>Laki-Laki</option>
-                            <option>Perempuan</option>
-                        </select>
-                        <?php echo form_error('jk')?>
+                            <label>Jenis Kelamin</label>
+                            <select id="jk" class="form-control" name="jk">
+                                <option>Laki-Laki</option>
+                                <option>Perempuan</option>
+                            </select>
+                            <?php echo form_error('jk')?>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label>No. Handphone</label>
-                        <input type="text" class="form-control" id="hp" placeholder="" name="hp">
-                        <?php echo form_error('hp')?>
-                    </div>
-                    <div class="form-group">
-                        <label>E-Mail</label>
-                        <input type="email" class="form-control" id="email" placeholder="" name="email">
-                        <?php echo form_error('email')?>
-                    </div>
-                    <div class="form-group">
-                        <label>Alamat</label>
-                        <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="5"></textarea>
-                        <?php echo form_error('alamat')?>
-                    </div>
-                    <div class="form-group">
-                        <label>Password</label>
-                        <input type="password" class="form-control" id="password" placeholder="" name="password" value="abs1234">
-                        <?php echo form_error('password')?>
+                    <div class="form-row">
+                    <div class="form-group col-md-4">
+                            <label>Kelas</label>
+                            <select id="kelas" class="form-control" name="kelas">
+                                <option>X</option>
+                                <option>XI</option>
+                                <option>XII</option>
+                            </select>
+                            <?php echo form_error('kelas')?>
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label>Jurusan</label>
+                            <select id="jurusan" class="form-control" name="jurusan">
+                                <option>Pemasaran</option>
+                                <option>Pariwisata</option>
+                                <option>Peternakan</option>
+                            </select>
+                            <?php echo form_error('jurusan')?>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

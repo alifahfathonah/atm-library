@@ -17,10 +17,10 @@ class Admin extends CI_Controller {
                 $data['buku']           = $this->db->get('tb_buku')->num_rows();
                 $data['borrow']         = $this->db->query("select * from tb_transaksi where tgl_dikembalikan is NULL")->num_rows();
                 $data['kembali']        = $this->db->query("select * from tb_transaksi where tgl_dikembalikan is NOT NULL")->num_rows();
-                $data['pinjam']         = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL")->result();
+                $data['pinjam']         = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NULL")->result();
                 
                 $date = date("Y-m-d");
-                $data['melebihi'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->num_rows();
+                $data['melebihi'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->num_rows();
                 
                 $data['anggota'] = $this->m_master->get_data('tb_anggota')->result();
 
@@ -32,7 +32,12 @@ class Admin extends CI_Controller {
         
         public function anggota(){
                 $data['judul'] = 'Data Anggota';
-                $data['anggota'] = $this->m_master->get_data('tb_anggota')->result();
+
+                $this->db->from('tb_anggota');
+                $this->db->order_by("nis", "asc");
+                $query = $this->db->get(); 
+
+                $data['anggota'] = $query->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -41,31 +46,25 @@ class Admin extends CI_Controller {
         }
 
         public function input_anggota(){
-                $nim = $this->input->post('nim');
+                $nis = $this->input->post('nis');
                 $nama = $this->input->post('nama');
                 $jk = $this->input->post('jk');
-                $hp = $this->input->post('hp');
-                $email = $this->input->post('email');
-                $alamat = $this->input->post('alamat');
-                $password = $this->input->post('password');
+                $kelas = $this->input->post('kelas');
+                $jurusan = $this->input->post('jurusan');
 
                 $data = array(
-                        'nim'    => $nim,
-                        'nama'   => $nama,
-                        'jk'     => $jk,
-                        'hp'     => $hp,
-                        'email'  => $email,
-                        'alamat' => $alamat,
-                        'password' => md5($password)
+                        'nis'      => $nis,
+                        'nama'     => $nama,
+                        'jk'       => $jk,
+                        'kelas'    => $kelas,
+                        'jurusan'  => $jurusan
                 );
 
-                $this->form_validation->set_rules('nim','Nim','trim|required');
+                $this->form_validation->set_rules('nis','nis','trim|required');
                 $this->form_validation->set_rules('nama','Nama','trim|required');
                 $this->form_validation->set_rules('jk','JK','trim|required');
-                $this->form_validation->set_rules('hp','HP','trim|required');
-                $this->form_validation->set_rules('email','EMAIL','trim|required');
-                $this->form_validation->set_rules('alamat','Alamat','trim|required');
-                $this->form_validation->set_rules('password','Password','trim|required');
+                $this->form_validation->set_rules('kelas','kelas','trim|required');
+                $this->form_validation->set_rules('jurusan','jurusan','trim|required');
 
                 if($this->form_validation->run() != false){
                         $this->m_master->insert_data($data,'tb_anggota');
@@ -77,18 +76,18 @@ class Admin extends CI_Controller {
                 
         }
 
-        public function hapus_anggota($nim){
+        public function hapus_anggota($nis){
                 $where = array(
-                        'nim' => $nim
+                        'nis' => $nis
                 );
                 $this->m_master->delete_data($where,'tb_anggota');
                 redirect('admin/anggota?pesan=hapusberhasil');
         }
 
-        public function edit_anggota($nim){
+        public function edit_anggota($nis){
                 $data['judul'] = 'Data Buku';
                 $where = array(
-                        'nim' => $nim
+                        'nis' => $nis
                 );
                 $data['anggota'] = $this->m_master->edit_data($where,'tb_anggota')->result();
 
@@ -99,34 +98,28 @@ class Admin extends CI_Controller {
         }
 
         public function update_anggota(){
-                $nim = $this->input->post('nim');
+                $nis = $this->input->post('nis');
                 $nama = $this->input->post('nama');
                 $jk = $this->input->post('jk');
-                $hp = $this->input->post('hp');
-                $email = $this->input->post('email');
-                $alamat = $this->input->post('alamat');
-                $password = $this->input->post('password');
+                $kelas = $this->input->post('kelas');
+                $jurusan = $this->input->post('jurusan');
 
                 $data = array(
                         'nama'   => $nama,
                         'jk'     => $jk,
-                        'hp'     => $hp,
-                        'email'  => $email,
-                        'alamat' => $alamat,
-                        'password' => md5($password)
+                        'kelas'     => $kelas,
+                        'jurusan'  => $jurusan,
                 );
 
                 $where = array(
-                        'nim'    => $nim
+                        'nis'    => $nis
                 );
 
-                $this->form_validation->set_rules('nim','Nim','trim|required');
+                $this->form_validation->set_rules('nis','nis','trim|required');
                 $this->form_validation->set_rules('nama','Nama','trim|required');
                 $this->form_validation->set_rules('jk','JK','trim|required');
-                $this->form_validation->set_rules('hp','HP','trim|required');
-                $this->form_validation->set_rules('email','EMAIL','trim|required');
-                $this->form_validation->set_rules('alamat','Alamat','trim|required');
-                $this->form_validation->set_rules('password','Password','trim|required');
+                $this->form_validation->set_rules('kelas','kelas','trim|required');
+                $this->form_validation->set_rules('jurusan','jurusan','trim|required');
 
                 if($this->form_validation->run() != false){
                         $this->m_master->update_data($where,$data,'tb_anggota');
@@ -138,15 +131,19 @@ class Admin extends CI_Controller {
         }
 
         public function cetak_anggota(){
-                $data['anggota'] = $this->m_master->get_data('tb_anggota')->result();
+                $this->db->from('tb_anggota');
+                $this->db->order_by("nis", "asc");
+                $query = $this->db->get(); 
+
+                $data['anggota'] = $query->result();
                 $data['judul']   = 'Data Anggota';
                 $this->load->view('anggota/print_anggota',$data);
         }
 
-        public function kartu($nim){
+        public function kartu($nis){
                 $data['judul'] = 'Kartu Anggota';
                 $where = array(
-                        'nim' => $nim
+                        'nis' => $nis
                 );
                 $data['kartu'] = $this->m_master->edit_data($where,'tb_anggota')->result();
                 $this->load->view('anggota/kartu',$data);

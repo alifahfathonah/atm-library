@@ -25,11 +25,11 @@
                 <h5 class="mb-4 text-center">Kartu Anggota</h5>
                 <?php foreach($kartu as $kar) {?>
                 <table class="mb-2">
-                    <tr><th>NIM</th><td>: <?php echo $kar->nim?></td></tr>
+                    <tr><th>NIS</th><td>: <?php echo $kar->nis?></td></tr>
                     <tr><th>Nama</th><td>: <?php echo $kar->nama?></td></tr>
                     <tr><th>Jenis Kelamin</th><td>: <?php echo $kar->jk?></td></tr>
-                    <tr><th>E-Mail</th><td>: <?php echo $kar->email?></td></tr>
-                    <tr><th>Alamat</th><td>: <?php echo $kar->alamat?></td></tr>
+                    <tr><th>Kelas</th><td>: <?php echo $kar->kelas?></td></tr>
+                    <tr><th>Jurusan</th><td>: <?php echo $kar->jurusan?></td></tr>
                 </table>
                 <?php } ?>
             </div>
