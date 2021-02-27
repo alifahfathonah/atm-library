@@ -8,9 +8,9 @@
 
                             <form action="<?php echo base_url().'admin/update_anggota'?>" method="post">
                                 <div class="form-group">
-                                    <label>NIM</label>
-                                    <input type="text" class="form-control" id="nim" placeholder="" name="nim" value="<?php echo $ang->nim?>" readonly>
-                                    <?php echo form_error('nim')?>
+                                    <label>NIS</label>
+                                    <input type="text" class="form-control" id="nis" placeholder="" name="nis" value="<?php echo $ang->nis?>" readonly>
+                                    <?php echo form_error('nis')?>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-8">
@@ -29,25 +29,29 @@
                                     <?php echo form_error('jk')?>
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <label>No. Handphone</label>
-                                    <input type="text" class="form-control" id="hp" placeholder="" name="hp" value="<?php echo $ang->hp?>">
-                                    <?php echo form_error('hp')?>
-                                </div>
-                                <div class="form-group">
-                                    <label>E-Mail</label>
-                                    <input type="text" class="form-control" id="email" placeholder="" name="email" value="<?php echo $ang->email?>">
-                                    <?php echo form_error('email')?>
-                                </div>
-                                <div class="form-group mb-3">
-                                    <label>Alamat</label>
-                                    <textarea class="form-control" name="alamat" id="alamat" cols="30" rows="5"><?php echo $ang->alamat?></textarea>
-                                    <?php echo form_error('alamat')?>
-                                </div>
-                                <div class="form-group">
-                                    <label>Password</label>
-                                    <input type="password" class="form-control" id="password" placeholder="" name="password" value="<?php echo $ang->password?>">
-                                    <?php echo form_error('password')?>
+                                <div class="form-row">
+                                <div class="form-group col-md-4">
+                                    <label>Kelas</label>
+                                        <select id="kelas" class="form-control" name="kelas">
+                                            <option><?php echo $ang->kelas ?></option>
+                                            <option><hr></option>
+                                            <option>X</option>
+                                            <option>XI</option>
+                                            <option>XII</option>
+                                        </select>
+                                        <?php echo form_error('kelas')?>
+                                    </div>
+                                    <div class="form-group col-md-8">
+                                    <label>Jurusan</label>
+                                        <select id="jurusan" class="form-control" name="jurusan">
+                                            <option><?php echo $ang->jurusan ?></option>
+                                            <option><hr></option>
+                                            <option>Pemasaran</option>
+                                            <option>Pariwisata</option>
+                                            <option>Peternakan</option>
+                                        </select>
+                                        <?php echo form_error('jurusan')?>
+                                    </div>
                                 </div>
 
                                 <a href="<?php echo base_url()?>admin/anggota" class="btn btn-secondary">Batal</a>
