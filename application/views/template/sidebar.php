@@ -9,7 +9,7 @@
             <div class="sidebar-brand-icon">
             <i class="fas fa-book"></i>
             </div>
-            <div class="sidebar-brand-text mx-3">YAM LIBRARY</div>
+            <div class="sidebar-brand-text mx-3">ATM LIBRARY</div>
         </a>
 
         <!-- Divider -->

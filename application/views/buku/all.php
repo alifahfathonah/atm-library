@@ -18,8 +18,7 @@
     </head>
     <body>
         <img src="<?php echo base_url()?>assets/img/header.jpg" alt="">
-        <hr>
-        <h3 class="text-center">Data Buku</h3>
+        <h3 class="text-center mt-2">Data Buku</h3>
         <p class="mb-2">Kategori : <?php echo $kategori?></p>
         <table class="table table-bordered">
         <thead>
@@ -29,7 +28,6 @@
             <th scope="col">Judul</th>
             <th scope="col">Penulis</th>
             <th scope="col">Tahun</th>
-            <th scope="col">Kategori</th>
             <th scope="col">Penerbit</th>
             <th scope="col">Stok</th>
             <th scope="col">Stok Awal</th>
@@ -46,7 +44,6 @@
                     <td><?php echo $buk->judul ?></td>
                     <td><?php echo $buk->penulis ?></td>
                     <td class="text-center"><?php echo $buk->tahun ?></td>
-                    <td><?php echo $buk->kategori ?></td>
                     <td><?php echo $buk->penerbit ?></td>
                     <td class="text-center"><?php echo $buk->stok ?></td>
                     <td class="text-center"><?php echo $buk->stok_awal ?></td>

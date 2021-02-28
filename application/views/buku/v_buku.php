@@ -116,17 +116,12 @@
                         <?php echo form_error('penulis')?>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-5">
                             <label>Tahun</label>
                             <input type="number" class="form-control" id="tahun" placeholder="" name="tahun">
                             <?php echo form_error('tahun')?>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label>Halaman</label>
-                            <input type="number" class="form-control" id="halaman" placeholder="" name="halaman">
-                            <?php echo form_error('halaman')?>
-                        </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-7">
                             <label>Kategori</label>
                             <select id="kategori" class="form-control" name="kategori">
                                 <option>Umum</option>
@@ -153,25 +148,6 @@
                             <label>Stok awal</label>
                             <input type="number" class="form-control" id="stok_awal" placeholder="" name="stok_awal">
                             <?php echo form_error('stok_awal')?>
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label>Sumber</label>
-                            <select id="sumber" class="form-control" name="sumber">
-                                <option>Yayasan</option>
-                                <option>Organisasi</option>
-                                <option>Donasi</option>
-                            </select>
-                            <?php echo form_error('sumber')?>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label>Kondisi</label>
-                            <select id="kondisi" class="form-control" name="kondisi">
-                                <option>Lama</option>
-                                <option>Baru</option>
-                            </select>
-                            <?php echo form_error('kondisi')?>
                         </div>
                     </div>
                     </div>

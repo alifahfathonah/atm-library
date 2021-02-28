@@ -11,10 +11,10 @@
 
                                 <div class="form-row">
                                     <div class="form-group col-md-4">
-                                        <label>NIM</label>
+                                        <label>NIS</label>
                                         <input type="hidden" class="form-control" id="id_transaksi" placeholder="" name="id_transaksi" value="<?php echo $det->id_transaksi?>" readonly>
-                                        <input type="number" class="form-control" id="nim_anggota" placeholder="" name="nim_anggota" value="<?php echo $det->nim?>" readonly>
-                                        <?php echo form_error('nim')?>
+                                        <input type="number" class="form-control" id="nis" placeholder="" name="nis" value="<?php echo $det->nis?>" readonly>
+                                        <?php echo form_error('nis')?>
                                     </div>
                                     <div class="form-group col-md-8">
                                         <label>Nama</label>

@@ -23,8 +23,8 @@
                             <form action="<?php echo base_url().'admin/checkout'?>" method="post">
 
                                 <div class="form-group">
-                                    <label>NIM Anggota</label>
-                                    <input type="text" class="form-control" id="key_anggota" placeholder="Masukan NIM Anggota" name="key_anggota">
+                                    <label>NIS</label>
+                                    <input type="text" class="form-control" id="key_anggota" placeholder="Masukan NIS" name="key_anggota">
                                     <?php echo form_error('key_anggota')?>
                                 </div>
 
@@ -46,10 +46,11 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>NIM</th>
+                                            <th>NIS</th>
                                             <th>Nama</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Alamat</th>
+                                            <th>Kelas</th>
+                                            <th>Jurusan</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,10 +59,11 @@
                                             foreach($anggota as $ang) { ?>
                                         <tr>
                                             <td><?php echo $no++ ?></td>
-                                            <td><?php echo $ang->nim ?></td>
+                                            <td><?php echo $ang->nis ?></td>
                                             <td><?php echo $ang->nama ?></td>
                                             <td><?php echo $ang->jk ?></td>
-                                            <td><?php echo $ang->alamat ?></td>
+                                            <td><?php echo $ang->kelas ?></td>
+                                            <td><?php echo $ang->jurusan ?></td>
                                         </tr>
                                         <?php } ?>
                                     </tbody>

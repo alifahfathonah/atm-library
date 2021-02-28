@@ -18,7 +18,7 @@
 
                             <form action="" method="post">                                
                                 <div class="form-group">
-                                    <label>Masukan NIM Anggota</label>
+                                    <label>Masukan NIS</label>
                                     <input type="text" class="form-control" id="key_anggota" name="key_anggota" value="<?php echo $key_anggota?>" readonly>
                                     <?php echo form_error('key_anggota')?>
                                 </div>
@@ -35,7 +35,7 @@
                                 <hr>
                                 <table>
                                 <?php foreach($anggota_result as $res) { ?>
-                                    <tr><th>NIM</th><td>: <?php echo $res->nim?></td></tr>
+                                    <tr><th>NIS</th><td>: <?php echo $res->nis?></td></tr>
                                     <tr><th>Nama</th><td>: <?php echo $res->nama?></td></tr>
                                 <?php }
                                 foreach($buku_result as $res) {?>
@@ -52,7 +52,7 @@
 
                                     $kembali = date("Y-m-d", strtotime($date.'+7 day'));
                                 ?>
-                                    <input type="hidden" name="nim_anggota" value="<?php echo $key_anggota?>">
+                                    <input type="hidden" name="nis" value="<?php echo $key_anggota?>">
                                     <input type="hidden" name="kode_buku" value="<?php echo $key_buku?>">
                                     <div class="form-group col-md-4">
                                             <label>Tanggal Pinjam</label>

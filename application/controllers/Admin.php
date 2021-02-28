@@ -151,7 +151,12 @@ class Admin extends CI_Controller {
 
         public function all_kartu(){
                 $data['judul'] = 'Cetak Kartu';
-                $data['kartu'] = $this->m_master->get_data('tb_anggota')->result();
+
+                $this->db->from('tb_anggota');
+                $this->db->order_by("nis", "asc");
+                $query = $this->db->get(); 
+
+                $data['kartu'] = $query->result();
 
                 $this->load->view('anggota/all_kartu',$data);
         }
@@ -177,11 +182,13 @@ class Admin extends CI_Controller {
                         'password' => md5($password)
                 );
 
+                $cek = $this->db->get_where('tb_petugas', array('username' => $username))->num_rows();
+
                 $this->form_validation->set_rules('nama','Nama','trim|required');
                 $this->form_validation->set_rules('username','Username','trim|required');
                 $this->form_validation->set_rules('password','Password','trim|required');
 
-                if($this->form_validation->run() != false){
+                if($this->form_validation->run() != false && $cek == 0){
                         $this->m_master->insert_data($data,'tb_petugas');
                         redirect('admin/petugas?pesan=berhasil');
                 }
@@ -200,7 +207,12 @@ class Admin extends CI_Controller {
 
         public function buku(){
                 $data['judul']  = 'Data Buku';
-                $data['buku']   = $this->m_master->get_data('tb_buku')->result();
+
+                $this->db->from('tb_buku');
+                $this->db->order_by("kode", "asc");
+                $query = $this->db->get(); 
+
+                $data['buku'] = $query->result();
 
                 $data['semua']      = 'btn-info';
                 $data['umum']       = 'btn-secondary';
@@ -599,37 +611,28 @@ class Admin extends CI_Controller {
                 $judul          = $this->input->post('judul');
                 $penulis        = $this->input->post('penulis');
                 $tahun          = $this->input->post('tahun');
-                $halaman        = $this->input->post('halaman');
                 $kategori       = $this->input->post('kategori');
                 $penerbit       = $this->input->post('penerbit');
                 $stok_awal      = $this->input->post('stok_awal');
-                $sumber         = $this->input->post('sumber');
-                $kondisi        = $this->input->post('kondisi');
 
                 $data = array(
                         'kode'          => $kode,
                         'judul'         => $judul,
                         'penulis'       => $penulis,
                         'tahun'         => $tahun,
-                        'halaman'       => $halaman,
                         'kategori'      => $kategori,
                         'penerbit'      => $penerbit,
                         'stok'          => $stok_awal,
-                        'stok_awal'     => $stok_awal,
-                        'sumber'        => $sumber,
-                        'kondisi'       => $kondisi
+                        'stok_awal'     => $stok_awal
                 );
 
                 $this->form_validation->set_rules('kode','Kode','trim|required');
                 $this->form_validation->set_rules('judul','Judul','trim|required');
                 $this->form_validation->set_rules('penulis','Penulis','trim|required');
                 $this->form_validation->set_rules('tahun','Tahun','trim|required');
-                $this->form_validation->set_rules('halaman','Halaman','trim|required');
                 $this->form_validation->set_rules('kategori','Kategori','trim|required');
                 $this->form_validation->set_rules('penerbit','Penerbit','trim|required');
                 $this->form_validation->set_rules('stok_awal','Stok_awal','trim|required');
-                $this->form_validation->set_rules('sumber','Sumber','trim|required');
-                $this->form_validation->set_rules('kondisi','Kondisi','trim|required');
 
                 if($this->form_validation->run() != false){
                         $this->m_master->insert_data($data,'tb_buku');
@@ -669,27 +672,19 @@ class Admin extends CI_Controller {
                 $judul          = $this->input->post('judul');
                 $penulis        = $this->input->post('penulis');
                 $tahun          = $this->input->post('tahun');
-                $halaman        = $this->input->post('halaman');
-                $kategori       = $this->input->post('kategori');
                 $penerbit       = $this->input->post('penerbit');
                 $stok_awal      = $this->input->post('stok_awal');
-                $sumber         = $this->input->post('sumber');
-                $kondisi        = $this->input->post('kondisi');
 
-                $pinjam  = $this->db->query("SELECT * FROM tb_transaksi,tb_anggota,tb_buku WHERE nim_anggota=nim AND kode_buku=kode AND tgl_dikembalikan IS NULL AND kode_buku=".$kode)->num_rows();
+                $pinjam  = $this->db->query("SELECT * FROM tb_transaksi,tb_anggota,tb_buku WHERE nis_anggota=nis AND kode_buku=kode AND tgl_dikembalikan IS NULL AND kode_buku=".$kode)->num_rows();
                 $jumstok = $stok_awal - $pinjam;
 
                 $data = array(
                         'judul'         => $judul,
                         'penulis'       => $penulis,
                         'tahun'         => $tahun,
-                        'halaman'       => $halaman,
-                        'kategori'      => $kategori,
                         'penerbit'      => $penerbit,
                         'stok'          => $jumstok,
                         'stok_awal'     => $stok_awal,
-                        'sumber'        => $sumber,
-                        'kondisi'       => $kondisi
                 );
 
                 $where = array(
@@ -700,12 +695,8 @@ class Admin extends CI_Controller {
                 $this->form_validation->set_rules('judul','Judul','trim|required');
                 $this->form_validation->set_rules('penulis','Penulis','trim|required');
                 $this->form_validation->set_rules('tahun','Tahun','trim|required');
-                $this->form_validation->set_rules('halaman','Halaman','trim|required');
-                $this->form_validation->set_rules('kategori','Kategori','trim|required');
                 $this->form_validation->set_rules('penerbit','Penerbit','trim|required');
                 $this->form_validation->set_rules('stok_awal','Stok_Awal','trim|required');
-                $this->form_validation->set_rules('sumber','Sumber','trim|required');
-                $this->form_validation->set_rules('kondisi','Kondisi','trim|required');
 
                 if($this->form_validation->run() != false){
                         $this->m_master->update_data($where,$data,'tb_buku');
@@ -763,10 +754,10 @@ class Admin extends CI_Controller {
                 $data['key_anggota'] = $key_anggota;
                 $data['key_buku']    = $key_buku;
 
-                $cek_anggota = $this->db->get_where('tb_anggota', array('nim' => $key_anggota))->result();
+                $cek_anggota = $this->db->get_where('tb_anggota', array('nis' => $key_anggota))->result();
                 $cek_buku    = $this->db->get_where('tb_buku', array('kode' => $key_buku))->result();
 
-                $data['anggota_result'] = $this->db->get_where('tb_anggota',array('nim' => $key_anggota))->result();
+                $data['anggota_result'] = $this->db->get_where('tb_anggota',array('nis' => $key_anggota))->result();
                 $data['buku_result']    = $this->db->get_where('tb_buku',array('kode' => $key_buku))->result();
 
                 $this->form_validation->set_rules('key_anggota','Key_anggota','trim|required');
@@ -793,7 +784,7 @@ class Admin extends CI_Controller {
         }
 
         public function act_checkout(){
-                $nim_anggota    = $this->input->post('nim_anggota');
+                $nis_anggota    = $this->input->post('nis');
                 $kode_buku      = $this->input->post('kode_buku');
                 $tgl_pinjam     = $this->input->post('tgl_pinjam');
                 $tgl_kembali    = $this->input->post('tgl_kembali');
@@ -802,7 +793,7 @@ class Admin extends CI_Controller {
                 $id_petugas     = $this->session->userdata('id');
 
                 $data = array(
-                        'nim_anggota' => $nim_anggota,
+                        'nis_anggota' => $nis_anggota,
                         'kode_buku'   => $kode_buku,
                         'tgl_pinjam'  => $tgl_pinjam,
                         'tgl_kembali' => $tgl_kembali,
@@ -811,7 +802,7 @@ class Admin extends CI_Controller {
                         'id_petugas'  => $id_petugas
                 );
 
-                $this->form_validation->set_rules('nim_anggota','Nim_anggota','trim|required');
+                $this->form_validation->set_rules('nis','nis','trim|required');
                 $this->form_validation->set_rules('kode_buku','Kode_buku','trim|required');
                 $this->form_validation->set_rules('tgl_pinjam','Tgl_pinjam','trim|required');
                 $this->form_validation->set_rules('tgl_kembali','Tgl_kembali','trim|required');
@@ -852,7 +843,7 @@ class Admin extends CI_Controller {
 
         public function lap_peminjaman(){
                 $data['judul']   = 'Laporan Peminjaman';
-                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL")->result();
+                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NULL")->result();
                 
                 $data['keyword'] = $this->input->post('keyword');
                 $data['dari'] = $this->input->post('dari');
@@ -998,7 +989,7 @@ class Admin extends CI_Controller {
 
                 $data['filter']   = 'Berdasarkan Tanggal ('.$a.' - '.$b.')';
 
-                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and date(tgl_dikembalikan) is NULL and date(tgl_kembali)>='$dari' and date(tgl_kembali)<='$sampai'")->result();
+                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and date(tgl_dikembalikan) is NULL and date(tgl_kembali)>='$dari' and date(tgl_kembali)<='$sampai'")->result();
                 
                 $this->load->view('laporan/print_laporan',$data);
         }
@@ -1006,7 +997,7 @@ class Admin extends CI_Controller {
         public function pengembalian(){
                 $data['judul']   = 'Pengembalian';
 
-                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL")->result();
+                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NULL")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1017,7 +1008,7 @@ class Admin extends CI_Controller {
         public function detail_kembali($id_transaksi){
                 $data['judul']   = 'Detail Pengembalian';
 
-                $data['detail'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and id_transaksi='$id_transaksi'")->result();
+                $data['detail'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and id_transaksi='$id_transaksi'")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1027,7 +1018,7 @@ class Admin extends CI_Controller {
 
         public function act_pengembalian(){
                 $id_transaksi      = $this->input->post('id_transaksi');
-                $nim_anggota       = $this->input->post('nim_anggota');
+                $nis       = $this->input->post('nis');
                 $kode_buku         = $this->input->post('kode_buku');
                 $tgl_pinjam        = $this->input->post('tgl_pinjam');
                 $tgl_kembali       = $this->input->post('tgl_kembali');
@@ -1042,7 +1033,7 @@ class Admin extends CI_Controller {
                 );
 
                 $data = array(
-                        'nim_anggota'           => $nim_anggota,
+                        'nis_anggota'           => $nis,
                         'kode_buku'             => $kode_buku,
                         'tgl_pinjam'            => $tgl_pinjam,
                         'tgl_kembali'           => $tgl_kembali,
@@ -1052,7 +1043,7 @@ class Admin extends CI_Controller {
                         'id_petugas'            => $id_petugas
                 );
 
-                $this->form_validation->set_rules('nim_anggota','Nim_anggota','trim|required');
+                $this->form_validation->set_rules('nis','nis','trim|required');
                 $this->form_validation->set_rules('kode_buku','Kode_buku','trim|required');
                 $this->form_validation->set_rules('tgl_pinjam','Tgl_pinjam','trim|required');
                 $this->form_validation->set_rules('tgl_kembali','Tgl_kembali','trim|required');
@@ -1187,15 +1178,16 @@ class Admin extends CI_Controller {
 
                 $data['filter']   = 'Berdasarkan Tanggal ('.$a.' - '.$b.')';
 
-                $data['pengembalian'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and date(tgl_dikembalikan) is NOT NULL and date(tgl_dikembalikan)>='$dari' and date(tgl_dikembalikan)<='$sampai'")->result();
+                $data['pengembalian'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and date(tgl_dikembalikan) is NOT NULL and date(tgl_dikembalikan)>='$dari' and date(tgl_dikembalikan)<='$sampai'")->result();
 
                 $this->load->view('laporan/print_pengembalian',$data);
         }
 
         public function perpanjangan(){
                 $data['judul']   = 'Perpanjangan';
+                $date = date("Y-m-d");
 
-                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL")->result();
+                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and date(tgl_dikembalikan) is NULL and date(tgl_pinjam) >='$date'")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1206,7 +1198,7 @@ class Admin extends CI_Controller {
         public function detail_perpanjangan($id_transaksi){
                 $data['judul']   = 'Detail Perpanjangan';
 
-                $data['detail'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and id_transaksi='$id_transaksi'")->result();
+                $data['detail'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and id_transaksi='$id_transaksi'")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1216,7 +1208,7 @@ class Admin extends CI_Controller {
 
         public function act_perpanjangan(){
                 $id_transaksi      = $this->input->post('id_transaksi');
-                $nim_anggota       = $this->input->post('nim_anggota');
+                $nis       = $this->input->post('nis');
                 $kode_buku         = $this->input->post('kode_buku');
                 $tgl_pinjam        = $this->input->post('tgl_pinjam');
                 $tgl_kembali       = $this->input->post('tgl_kembali');
@@ -1229,7 +1221,7 @@ class Admin extends CI_Controller {
                 );
 
                 $data = array(
-                        'nim_anggota'           => $nim_anggota,
+                        'nis_anggota'           => $nis,
                         'kode_buku'             => $kode_buku,
                         'tgl_pinjam'            => $tgl_pinjam,
                         'tgl_kembali'           => $tgl_kembali,
@@ -1238,7 +1230,7 @@ class Admin extends CI_Controller {
                         'id_petugas'            => $id_petugas
                 );
 
-                $this->form_validation->set_rules('nim_anggota','Nim_anggota','trim|required');
+                $this->form_validation->set_rules('nis','nis','trim|required');
                 $this->form_validation->set_rules('kode_buku','Kode_buku','trim|required');
                 $this->form_validation->set_rules('tgl_pinjam','Tgl_pinjam','trim|required');
                 $this->form_validation->set_rules('tgl_kembali','Tgl_kembali','trim|required');
