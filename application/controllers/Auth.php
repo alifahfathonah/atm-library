@@ -57,8 +57,8 @@ class Auth extends CI_Controller {
     }
 
     public function act(){
-        $passbaru      = $this->input->post('passlama');
-        $ulangpass     = $this->input->post('ulangpass' );
+        $passbaru      = $this->input->post('passbaru');
+        $ulangpass     = $this->input->post('ulangpass');
         
         $this->form_validation->set_rules('passbaru','Password Baru', 'required|matches[ulangpass]');
         $this->form_validation->set_rules('ulangpass','Ulangi Password Baru','required');

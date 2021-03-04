@@ -6,11 +6,11 @@
             <div class="row">
 
                 <div class="card shadow mb-4 p-4 col-md-3 ml-3">
-                    <form action="<?php echo base_url().'admin/filter_pengembalian_nim'?>" method="post">
-                    <h1 class="h5 mb-4 text-gray-800"><strong>Filter berdasarkan NIM Peminjam</strong> </h1>
+                    <form action="<?php echo base_url().'admin/filter_pengembalian_nis'?>" method="post">
+                    <h1 class="h5 mb-4 text-gray-800"><strong>Filter berdasarkan NIS Peminjam</strong> </h1>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIM Peminjam" name="keyword">
+                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIS Peminjam" name="keyword">
                         <?php echo form_error('ulangfilter')?>
                     </div>
 
@@ -50,7 +50,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>NIM</th>
+                            <th>NIS</th>
                             <th>Nama</th>
                             <th>Kode Buku</th>
                             <th>Judul Buku</th>
@@ -65,14 +65,14 @@
                             foreach($kembali as $kem) { ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $kem->nim_anggota ?></td>
+                            <td><?php echo $kem->nis_anggota ?></td>
                             <td><?php echo $kem->nama ?></td>
                             <td><?php echo $kem->kode_buku ?></td>
                             <td><?php echo $kem->judul ?></td>
                             <td><?php echo date('d/m/Y',strtotime($kem->tgl_pinjam)); ?></td>
                             <td><?php echo date('d/m/Y',strtotime($kem->tgl_dikembalikan)); ?></td>
                             <?php
-                                if($kem->total_denda = NULL){
+                                if($kem->total_denda != NULL){
                             ?>
                                 <td>Rp. <?php echo $kem->total_denda ?>;</td>
                             <?php }

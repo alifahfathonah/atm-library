@@ -18,14 +18,14 @@
     </head>
     <body>
         <img src="<?php echo base_url()?>assets/img/header.jpg" alt="">
-        <hr>
-        <h3 class="text-center mb-4">Data Pengembalian</h3>
+        
+        <h3 class="text-center mb-4 mt-3">Data Pengembalian</h3>
         <p class="mb-2">Filter : <?php echo $filter?></p>
         <table class="table table-bordered">
         <thead>
             <tr class="text-center">
                 <th scope="col">No.</th>
-                <th scope="col">NIM</th>
+                <th scope="col">NIS</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Kode Buku</th>
                 <th scope="col">Judul Buku</th>
@@ -41,7 +41,7 @@
             ?>
                 <tr>
                     <td class="text-center"><?php echo $no++ ?>.</td>
-                    <td class="text-center"><?php echo $pen->nim_anggota ?></td>
+                    <td class="text-center"><?php echo $pen->nis_anggota ?></td>
                     <td><?php echo $pen->nama ?></td>
                     <td class="text-center"><?php echo $pen->kode_buku ?></td>
                     <td><?php echo $pen->judul ?></td>

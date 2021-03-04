@@ -117,7 +117,7 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>NIM</th>
+                                        <th>NIS</th>
                                         <th>Nama</th>
                                         <th>Kode Buku</th>
                                         <th>Tanggal Pinjam</th>
@@ -129,7 +129,7 @@
                                         foreach($pinjam as $pinj) { ?>
                                     <tr>
                                         <td><?php echo $no++ ?></td>
-                                        <td><?php echo $pinj->nim_anggota ?></td>
+                                        <td><?php echo $pinj->nis_anggota ?></td>
                                         <td><?php echo $pinj->nama ?></td>
                                         <td><?php echo $pinj->kode_buku ?></td>
                                         <td><?php echo date('d/m/Y',strtotime($pinj->tgl_pinjam)); ?></td>

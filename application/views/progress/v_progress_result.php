@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="card shadow mb-4 p-4 col-md-3 ml-3">
                     <form action="<?php echo base_url().'admin/progress_result'?>" method="post">
-                    <h1 class="h5 mb-4 text-gray-800"><strong>Masukan NIM Anggota</strong> </h1>
+                    <h1 class="h5 mb-4 text-gray-800"><strong>Masukan NIS Anggota</strong> </h1>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIM Anggota" name="keyword" value="<?php echo set_value('keyword')?>">
+                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIS Anggota" name="keyword" value="<?php echo set_value('keyword')?>">
                         <?php echo form_error('keyword')?>
                     </div>
 
@@ -51,9 +51,8 @@
                         <table>
                         <?php foreach($anggota as $ang) { ?>
                             <tr><td  class="p-1 pl-0">Nama</td><td> : <?php echo $ang->nama?></td></tr>
-                            <tr><td class="p-1 pl-0">NIM</td><td> : <?php echo $ang->nim?></td></tr>
+                            <tr><td class="p-1 pl-0">NIS</td><td> : <?php echo $ang->nis?></td></tr>
                             <tr><td class="p-1 pl-0">Jenis Kelamin</td><td> : <?php echo $ang->jk?></td></tr>
-                            <tr><td class="p-1 pl-0">Alamat</td><td> : <?php echo $ang->alamat?></td></tr>
                             <tr><td class="p-1 pl-0"><hr></td><td><hr></td></tr>
                         <?php } ?>
                             <tr><td class="p-1 pl-0">Buku Yang Belum Dikembalikan </td><td> : <?php echo $belum?></td></tr>

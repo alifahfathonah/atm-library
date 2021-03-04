@@ -6,11 +6,11 @@
 
             <div class="row">
                 <div class="card shadow mb-4 p-4 col-md-3">
-                    <form action="<?php echo base_url().'admin/filter_peminjaman_nim'?>" method="post">
-                    <h1 class="h5 mb-4 text-gray-800"><strong>Filter berdasarkan NIM Peminjam</strong> </h1>
+                    <form action="<?php echo base_url().'admin/filter_peminjaman_nis'?>" method="post">
+                    <h1 class="h5 mb-4 text-gray-800"><strong>Filter berdasarkan NIS Peminjam</strong> </h1>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIM Peminjam" name="keyword" value="<?php echo $keyword?>">
+                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIS Peminjam" name="keyword" value="<?php echo $keyword?>">
                         <?php echo form_error('ulangfilter')?>
                     </div>
 
@@ -70,7 +70,7 @@
                     <thead>
                         <tr>
                             <th>No.</th>
-                            <th>NIM</th>
+                            <th>NIS</th>
                             <th>Nama</th>
                             <th>Kode Buku</th>
                             <th>Judul Buku</th>
@@ -86,7 +86,7 @@
                             foreach($pinjam as $pinj) { ?>
                         <tr>
                             <td><?php echo $no++ ?></td>
-                            <td><?php echo $pinj->nim_anggota ?></td>
+                            <td><?php echo $pinj->nis_anggota ?></td>
                             <td><?php echo $pinj->nama ?></td>
                             <td><?php echo $pinj->kode_buku ?></td>
                             <td><?php echo $pinj->judul ?></td>
@@ -120,7 +120,7 @@
             <script type="text/javascript">
                 var url="<?php echo base_url();?>";
                 function hapusdata(id_transaksi){
-                var r=confirm("Apakah anda yakin akan menghapus data ini ?")
+                var r=confirm("Apakah anda yakin akan membatalkan transaksi ini ?")
                     if (r==true)
                     window.location = url+"admin/batal/"+id_transaksi;
                     else

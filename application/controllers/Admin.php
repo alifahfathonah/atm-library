@@ -896,7 +896,7 @@ class Admin extends CI_Controller {
                 redirect('admin/lap_peminjaman?pesan=berhasil');
         }
 
-        public function filter_peminjaman_nim(){
+        public function filter_peminjaman_nis(){
                 $data['judul']   = 'Laporan Peminjaman';
 
                 $keyword = $this->input->post('keyword');
@@ -904,7 +904,7 @@ class Admin extends CI_Controller {
                 $data['keyword'] = $this->input->post('keyword');
                 $data['dari'] = $this->input->post('dari');
                 $data['sampai'] = $this->input->post('sampai');
-                $data['link']    = 'cetak_lappem_nim';
+                $data['link']    = 'cetak_lappem_nis';
 
                 $this->form_validation->set_rules('keyword','Keyword','trim|required');
                 
@@ -912,10 +912,10 @@ class Admin extends CI_Controller {
 
                         $this->db->select('*');
                         $this->db->from('tb_transaksi');
-                        $this->db->join('tb_anggota','tb_anggota.nim = tb_transaksi.nim_anggota');
+                        $this->db->join('tb_anggota','tb_anggota.nis = tb_transaksi.nis_anggota');
                         $this->db->join('tb_buku','tb_buku.kode = tb_transaksi.kode_buku');
                         $this->db->where('tb_transaksi.tgl_dikembalikan is NULL');
-                        $this->db->where('tb_anggota.nim',$keyword);
+                        $this->db->where('tb_anggota.nis',$keyword);
                         
                         $data['pinjam'] = $this->db->get()->result();
 
@@ -948,7 +948,7 @@ class Admin extends CI_Controller {
 
                 if($this->form_validation->run() != false){
 
-                        $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and date(tgl_dikembalikan) is NULL and date(tgl_kembali)>='$dari' and date(tgl_kembali)<='$sampai'")->result();
+                        $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and date(tgl_dikembalikan) is NULL and date(tgl_kembali)>='$dari' and date(tgl_kembali)<='$sampai'")->result();
 
                         $this->load->view('template/header',$data);
                         $this->load->view('template/sidebar');
@@ -963,20 +963,20 @@ class Admin extends CI_Controller {
 
         public function cetak_lappem(){
                 $data['judul']    = 'Data Peminjaman';
-                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL")->result();
+                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NULL")->result();
 
                 $data['filter'] = 'Semua Data';
 
                 $this->load->view('laporan/print_laporan',$data);
         }
 
-        public function cetak_lappem_nim($key){
+        public function cetak_lappem_nis($key){
                 $data['judul']    = 'Data Peminjaman';
 
                 $keyword = $this->input->post('keyword');
-                $data['filter']  = 'Berdasarkan NIM ('.$key.')';
+                $data['filter']  = 'Berdasarkan NIS ('.$key.')';
 
-                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NULL and nim_anggota='$key'")->result();
+                $data['peminjaman'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NULL and nis_anggota='$key'")->result();
                 
                 $this->load->view('laporan/print_laporan',$data);
         }
@@ -1084,7 +1084,7 @@ class Admin extends CI_Controller {
         public function lap_pengembalian(){
                 $data['judul']   = 'Laporan Pengembalian';
 
-                $data['kembali'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NOT NULL")->result();
+                $data['kembali'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NOT NULL")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1096,12 +1096,12 @@ class Admin extends CI_Controller {
                 $data['judul']    = 'Data Pengembalian';
                 $data['filter']   = 'Semua data';
 
-                $data['pengembalian'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_dikembalikan is NOT NULL")->result();
+                $data['pengembalian'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_dikembalikan is NOT NULL")->result();
 
                 $this->load->view('laporan/print_pengembalian',$data);
         }
 
-        public function filter_pengembalian_nim(){
+        public function filter_pengembalian_nis(){
                 $data['judul']   = 'Filter Laporan Pengembalian';
 
                 $keyword = $this->input->post('keyword');
@@ -1112,16 +1112,16 @@ class Admin extends CI_Controller {
 
                         $this->db->select('*');
                         $this->db->from('tb_transaksi');
-                        $this->db->join('tb_anggota','tb_anggota.nim = tb_transaksi.nim_anggota');
+                        $this->db->join('tb_anggota','tb_anggota.nis = tb_transaksi.nis_anggota');
                         $this->db->join('tb_buku','tb_buku.kode = tb_transaksi.kode_buku');
                         $this->db->where('tb_transaksi.tgl_dikembalikan is NOT NULL');
-                        $this->db->where('tb_anggota.nim',$keyword);
+                        $this->db->where('tb_anggota.nis',$keyword);
                         
                         $data['kembali'] = $this->db->get()->result();
 
                         $this->load->view('template/header',$data);
                         $this->load->view('template/sidebar');
-                        $this->load->view('laporan/v_lappengembalian_filter_nim',$data);
+                        $this->load->view('laporan/v_lappengembalian_filter_nis',$data);
                         $this->load->view('template/footer');
                 }
 
@@ -1130,16 +1130,16 @@ class Admin extends CI_Controller {
                 }
         }
 
-        public function cetak_lappen_nim($keyword){
+        public function cetak_lappen_nis($keyword){
                 $data['judul']    = 'Data Pengembalian';
-                $data['filter']   = 'Berdasarkan NIM ('.$keyword.')';
+                $data['filter']   = 'Berdasarkan NIS ('.$keyword.')';
 
                 $this->db->select('*');
                 $this->db->from('tb_transaksi');
-                $this->db->join('tb_anggota','tb_anggota.nim = tb_transaksi.nim_anggota');
+                $this->db->join('tb_anggota','tb_anggota.nis = tb_transaksi.nis_anggota');
                 $this->db->join('tb_buku','tb_buku.kode = tb_transaksi.kode_buku');
                 $this->db->where('tb_transaksi.tgl_dikembalikan is NOT NULL');
-                $this->db->where('tb_anggota.nim',$keyword);
+                $this->db->where('tb_anggota.nis',$keyword);
                         
                 $data['pengembalian'] = $this->db->get()->result();
 
@@ -1157,7 +1157,7 @@ class Admin extends CI_Controller {
 
                 if($this->form_validation->run() != false){
 
-                        $data['kembali'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and date(tgl_dikembalikan) is NOT NULL and date(tgl_dikembalikan)>='$dari' and date(tgl_dikembalikan)<='$sampai'")->result();
+                        $data['kembali'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and date(tgl_dikembalikan) is NOT NULL and date(tgl_dikembalikan)>='$dari' and date(tgl_dikembalikan)<='$sampai'")->result();
 
                         $this->load->view('template/header',$data);
                         $this->load->view('template/sidebar');
@@ -1249,7 +1249,7 @@ class Admin extends CI_Controller {
                 $data['judul']   = 'Laporan Peminjaman Melebihi Deadline';
                 $date = date("Y-m-d");
                 
-                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->result();
+                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->result();
 
                 $this->load->view('template/header',$data);
                 $this->load->view('template/sidebar');
@@ -1260,7 +1260,7 @@ class Admin extends CI_Controller {
         public function cetak_melebihi(){
                 $data['judul']   = 'Laporan Peminjaman Melebihi Deadline';
                 $date = date("Y-m-d");
-                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nim_anggota=nim and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->result();
+                $data['pinjam'] = $this->db->query("select * from tb_transaksi,tb_anggota,tb_buku where nis_anggota=nis and kode_buku=kode and tgl_kembali < '$date' and tgl_dikembalikan is NULL")->result();
                 $this->load->view('laporan/print_melebihi',$data);
         }
 
@@ -1280,16 +1280,16 @@ class Admin extends CI_Controller {
 
                 $this->form_validation->set_rules('keyword','Keyword','trim|required');
 
-                $data['anggota']        = $this->db->query("select * from tb_anggota where nim='$keyword'")->result();
-                $data['belum']          = $this->db->query("select * from tb_transaksi where nim_anggota='$keyword' and tgl_dikembalikan is NULL")->num_rows();
-                $data['kembali']        = $this->db->query("select * from tb_transaksi where nim_anggota='$keyword' and tgl_dikembalikan is NOT NULL")->num_rows();
-                $data['jumlah']         = $this->db->query("select * from tb_transaksi where nim_anggota='$keyword'")->num_rows();
+                $data['anggota']        = $this->db->query("select * from tb_anggota where nis='$keyword'")->result();
+                $data['belum']          = $this->db->query("select * from tb_transaksi where nis_anggota='$keyword' and tgl_dikembalikan is NULL")->num_rows();
+                $data['kembali']        = $this->db->query("select * from tb_transaksi where nis_anggota='$keyword' and tgl_dikembalikan is NOT NULL")->num_rows();
+                $data['jumlah']         = $this->db->query("select * from tb_transaksi where nis_anggota='$keyword'")->num_rows();
 
                 $this->db->select('*');
                 $this->db->from('tb_transaksi');
-                $this->db->join('tb_anggota','tb_anggota.nim = tb_transaksi.nim_anggota');
+                $this->db->join('tb_anggota','tb_anggota.nis = tb_transaksi.nis_anggota');
                 $this->db->join('tb_buku','tb_buku.kode = tb_transaksi.kode_buku');
-                $this->db->where('tb_anggota.nim',$keyword);
+                $this->db->where('tb_anggota.nis',$keyword);
                         
                 $data['cek'] = $this->db->get()->result();
 
@@ -1317,7 +1317,7 @@ class Admin extends CI_Controller {
 
                 $this->db->select('*');
                 $this->db->from('tb_transaksi');
-                $this->db->join('tb_anggota','tb_anggota.nim = tb_transaksi.nim_anggota');
+                $this->db->join('tb_anggota','tb_anggota.nis = tb_transaksi.nis_anggota');
                 $this->db->join('tb_buku','tb_buku.kode = tb_transaksi.kode_buku');
                 $this->db->where('tb_buku.kode',$keyword);
                         

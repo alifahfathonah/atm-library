@@ -161,7 +161,7 @@ CREATE TABLE `tb_buku` (
 /*Data for the table `tb_buku` */
 
 insert  into `tb_buku`(`kode`,`judul`,`penulis`,`tahun`,`penerbit`,`kategori`,`stok`,`stok_awal`) values 
-(123,'Ketika Rambo Dagang','Ahmad',2000,'Billionaire Store','Umum',20,20),
+(123,'Ketika Rambo Dagang','Ahmad',2000,'Billionaire Store','Umum',19,20),
 (1032016,'MENGAPA DOA TAK TERKABULKAN','Drs. Joko Hariyanto',2000,'Rosda',NULL,1,1),
 (2042016,'Tafsir Hikmah','DR. Juhaya S. Praja',2000,'Rosda',NULL,1,1),
 (3042016,'Sate rohani dari madura','D. Zawawi Imron',2001,'Rosda',NULL,1,1),
@@ -829,7 +829,7 @@ CREATE TABLE `tb_petugas` (
   `id` int(10) NOT NULL AUTO_INCREMENT,
   `nama` varchar(30) DEFAULT NULL,
   `username` varchar(30) DEFAULT NULL,
-  `password` varchar(50) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4;
 
@@ -860,7 +860,7 @@ CREATE TABLE `tb_transaksi` (
   CONSTRAINT `tb_transaksi_ibfk_1` FOREIGN KEY (`nis_anggota`) REFERENCES `tb_anggota` (`nis`),
   CONSTRAINT `tb_transaksi_ibfk_2` FOREIGN KEY (`kode_buku`) REFERENCES `tb_buku` (`kode`),
   CONSTRAINT `tb_transaksi_ibfk_3` FOREIGN KEY (`id_petugas`) REFERENCES `tb_petugas` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `tb_transaksi` */
 
@@ -876,7 +876,8 @@ insert  into `tb_transaksi`(`id_transaksi`,`id_petugas`,`nis_anggota`,`kode_buku
 (115,9,20210045,578012020,'2021-01-08','2021-01-15',0,NULL,NULL,NULL),
 (116,9,1819044,579012020,'2021-01-19','2021-01-26',0,NULL,NULL,NULL),
 (117,NULL,1819052,538042019,'2021-02-08','2021-02-15',1000,2000,'Selesai','2021-02-17'),
-(118,9,1819001,123,'2021-02-28','2021-03-14',1000,NULL,'Dikembalikan','2021-02-28');
+(118,9,1819001,123,'2021-02-28','2021-03-14',1000,NULL,'Dikembalikan','2021-02-28'),
+(120,9,1819020,123,'2021-03-04','2021-03-11',1000,NULL,'Belum Dikembalikan',NULL);
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

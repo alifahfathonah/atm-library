@@ -18,14 +18,13 @@
     </head>
     <body>
         <img src="<?php echo base_url()?>assets/img/header.jpg" alt="">
-        <hr>
-        <h3 class="text-center mb-4">Data Peminjaman</h3>
+        <h3 class="text-center mb-4 mt-2">Data Peminjaman</h3>
         <p class="mb-2">Filter : <?php echo $filter?></p>
         <table class="table table-bordered">
         <thead>
             <tr class="text-center">
                 <th scope="col">No.</th>
-                <th scope="col">NIM</th>
+                <th scope="col">NIS</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Kode Buku</th>
                 <th scope="col">Judul Buku</th>
@@ -41,13 +40,23 @@
             ?>
                 <tr>
                     <td class="text-center"><?php echo $no++ ?>.</td>
-                    <td class="text-center"><?php echo $pem->nim_anggota ?></td>
+                    <td class="text-center"><?php echo $pem->nis_anggota ?></td>
                     <td><?php echo $pem->nama ?></td>
                     <td class="text-center"><?php echo $pem->kode_buku ?></td>
                     <td><?php echo $pem->judul ?></td>
-                    <td><?php echo $pem->tgl_pinjam ?></td>
-                    <td><?php echo $pem->tgl_kembali ?></td>
-                    <td><?php echo $pem->status ?></td>
+                    <td><?php echo date("d-m-Y",strtotime($pem->tgl_pinjam)) ?></td>
+                    <td><?php echo date("d-m-Y", strtotime($pem->tgl_kembali)) ?></td>
+                    <?php
+                                $date = date("Y-m-d");
+                                
+                                if($pem->tgl_kembali < $date){
+                            ?>
+                                <td class="text-danger">Melebihi Batas</td>
+                            <?php }
+                                else{
+                            ?>
+                                <td><?php echo $pem->status ?></td>
+                            <?php }?>
                 </tr>
             <?php } ?>
         </tbody>

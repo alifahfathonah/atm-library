@@ -9,10 +9,10 @@
             <div class="row">
                 <div class="card shadow mb-4 p-4 col-md-3 ml-3">
                     <form action="<?php echo base_url().'admin/progress_result'?>" method="post">
-                    <h1 class="h5 mb-4 text-gray-800"><strong>Masukan NIM Anggota</strong> </h1>
+                    <h1 class="h5 mb-4 text-gray-800"><strong>Masukan NIS Anggota</strong> </h1>
 
                     <div class="form-group">
-                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIM Anggota" name="keyword">
+                        <input type="text" class="form-control" id="keyword" placeholder="Masukan NIS Anggota" name="keyword">
                         <?php echo form_error('keyword')?>
                     </div>
 
